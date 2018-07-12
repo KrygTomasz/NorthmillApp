@@ -12,7 +12,7 @@ class BookDetailsVC: UIViewController {
     
     @IBOutlet weak var containerView: UIView! {
         didSet {
-            containerView.layer.cornerRadius = GlobalValues.MEDIUM_CORNER_RADIUS
+            containerView.layer.cornerRadius = GlobalValues.BIG_CORNER_RADIUS
         }
     }
     
