@@ -6,7 +6,10 @@
 //  Copyright © 2018 Kryg Tomasz. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+typealias BooksCompletion = ((Bool, [Book]) -> ())
+typealias BookCompletion = ((Bool, Book?) -> ())
 
 final class RequestManager {
     
@@ -41,7 +44,6 @@ final class RequestManager {
 //MARK: Api requests methods
 extension RequestManager {
     
-    typealias BooksCompletion = ((Bool, [Book]) -> ())
     func getBooks(completion: @escaping BooksCompletion) {
         guard let request = getRequest(usingHttpMethod: "GET", forEndpoint: booksEndpoint) else { return }
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -60,7 +62,6 @@ extension RequestManager {
         }.resume()
     }
     
-    typealias BookCompletion = ((Bool, Book?) -> ())
     func getBook(withId id: String, completion: @escaping BookCompletion) {
         let endpoint = bookEndpoint + "/\(id)"
         guard let request = getRequest(usingHttpMethod: "GET", forEndpoint: endpoint) else { return }
@@ -78,6 +79,34 @@ extension RequestManager {
                 completion(false, nil)
             }
         }.resume()
+    }
+    
+}
+
+//MARK: Downloading image from url
+extension RequestManager {
+    
+    private func getDataFromUrl(url: URL?, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        guard let url = url else {
+            print("Getting data from url failed. Wrong format for URL address.")
+            return
+        }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            completion(data, response, error)
+            }.resume()
+    }
+    func downloadImage(from urlAddress: String, completion: @escaping (UIImage?)->()) {
+        guard let url = URL(string: urlAddress) else { return }
+        getDataFromUrl(url: url) { data, response, error in
+            guard
+                let data = data,
+                error == nil
+                else {
+                    completion(nil)
+                    return
+            }
+            completion(UIImage(data: data))
+        }
     }
     
 }
