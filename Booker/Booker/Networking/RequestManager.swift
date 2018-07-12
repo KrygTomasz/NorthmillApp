@@ -6,10 +6,11 @@
 //  Copyright © 2018 Kryg Tomasz. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-typealias BooksCompletion = ((Bool, [Book]) -> ())
-typealias BookCompletion = ((Bool, Book?) -> ())
+typealias BooksCompletion = ((Bool, [Book]) -> Void)
+typealias BookCompletion = ((Bool, Book?) -> Void)
+typealias AddBookCompletion = ((Bool) -> Void)
 
 final class RequestManager {
     
@@ -20,11 +21,12 @@ final class RequestManager {
     private let booksEndpoint = "Books"
     private let bookEndpoint = "Book"
     
-    private func getRequest(usingHttpMethod httpMethod: String?, forEndpoint endpoint: String) -> URLRequest? {
+    private func getRequest(usingHttpMethod httpMethod: String?, forEndpoint endpoint: String, withBody httpBody: Data? = nil) -> URLRequest? {
         let address = urlAddress + endpoint
         guard let url = URL(string: address) else { return nil }
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod
+        request.httpBody = httpBody
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(getBasicAuth(), forHTTPHeaderField: "Authorization")
         return request
@@ -39,6 +41,15 @@ final class RequestManager {
         return "Basic \(base64LoginString)"
     }
     
+    private func getAddBookBody(using book: Book) -> [String : String?] {
+        let parameters = [
+            "Title" : book.Title,
+            "Description" : book.Description ?? "",
+            "CoverUrl" : book.CoverUrl
+        ]
+        return parameters
+    }
+    
 }
 
 //MARK: Api requests methods
@@ -51,7 +62,10 @@ extension RequestManager {
                 NSLog(error.localizedDescription)
                 completion(false, [])
             }
-            guard let data = data else { return }
+            guard let data = data else {
+                completion(false, [])
+                return
+            }
             do {
                 let books = try JSONDecoder().decode([BRBook].self, from: data)
                 completion(true, books)
@@ -70,7 +84,10 @@ extension RequestManager {
                 NSLog(error.localizedDescription)
                 completion(false, nil)
             }
-            guard let data = data else { return }
+            guard let data = data else {
+                completion(false, nil)
+                return
+            }
             do {
                 let book = try JSONDecoder().decode(BRBook.self, from: data)
                 completion(true, book)
@@ -81,32 +98,26 @@ extension RequestManager {
         }.resume()
     }
     
-}
-
-//MARK: Downloading image from url
-extension RequestManager {
-    
-    private func getDataFromUrl(url: URL?, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        guard let url = url else {
-            print("Getting data from url failed. Wrong format for URL address.")
+    func addBook(_ book: Book?, completion: @escaping AddBookCompletion) {
+        guard let bookToAdd = book else {
+            completion(false)
             return
         }
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            completion(data, response, error)
-            }.resume()
-    }
-    func downloadImage(from urlAddress: String, completion: @escaping (UIImage?)->()) {
-        guard let url = URL(string: urlAddress) else { return }
-        getDataFromUrl(url: url) { data, response, error in
-            guard
-                let data = data,
-                error == nil
-                else {
-                    completion(nil)
-                    return
+        let endpoint = bookEndpoint
+        let parameters = getAddBookBody(using: bookToAdd)
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
+        guard let request = getRequest(usingHttpMethod: "POST", forEndpoint: endpoint, withBody: httpBody) else { return }
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                NSLog(error.localizedDescription)
+                completion(false)
             }
-            completion(UIImage(data: data))
-        }
+            guard let data = data else {
+                completion(false)
+                return
+            }
+            completion(true)
+            }.resume()
     }
     
 }

@@ -15,7 +15,6 @@ class BookDetailsVC: UIViewController {
             containerView.layer.cornerRadius = GlobalValues.BIG_CORNER_RADIUS
         }
     }
-    
     @IBOutlet weak var imageContentView: UIView! {
         didSet {
             imageContentView.isHidden = true
@@ -23,12 +22,7 @@ class BookDetailsVC: UIViewController {
     }
     @IBOutlet weak var titleContentView: UIView!
     @IBOutlet weak var separatorContentView: UIView!
-    @IBOutlet weak var descriptionContentView: UIView! {
-        didSet {
-            //descriptionContentView.isHidden = true
-        }
-    }
-    
+    @IBOutlet weak var descriptionContentView: UIView!
     @IBOutlet weak var coverImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var separatorView: UIView! {

@@ -13,12 +13,12 @@ class BRBook: Book, Codable {
     var Title: String
     var CoverUrl: String?
     var Description: String?
-//    init(id: String, title: String, coverUrl: String? = nil, description: String? = nil) {
-//        self.Id = id
-//        self.Title = title
-//        self.CoverUrl = coverUrl ?? ""
-//        self.Description = description ?? ""
-//    }
+    init(id: String, title: String, description: String? = nil, coverUrl: String? = nil) {
+        self.Id = id
+        self.Title = title
+        self.CoverUrl = coverUrl
+        self.Description = description
+    }
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.Id = try values.decode(String.self, forKey: .Id)

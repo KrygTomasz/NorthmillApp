@@ -32,55 +32,15 @@ class BooksVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
-        booksListVM = BRBooksListVM(with: self)
-        booksListVM?.downloadBooks()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     func prepareView() {
         self.view.backgroundColor = UIColor.backgroundColor
         self.prepareNavigationBar(withTitle: "allBooks".localized())
+        booksListVM = BRBooksListVM(with: self)
+        booksListVM?.downloadBooks()
     }
     
-//    func getBooks(_ success: Bool, _ books: [Book]) {
-//
-//    }
-    
-//    func getBook(_ success: Bool, _ book: Book?) {
-//
-//    }
-    
-}
-
-//MARK: UITableView delegates
-extension BooksVC: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return booksListVM?.numberOfSections ?? 0
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return booksListVM?.numberOfRows(in: section) ?? 0
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard
-            let bookCell = tableView.dequeueReusableCell(withIdentifier: "BookTVCell", for: indexPath) as? BookTVCell
-            else {
-            return UITableViewCell()
-        }
-        return bookCell
-    }
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let bookCell = cell as? BookTVCell else { return }
-        let bookVM = booksListVM?.getBookVM(for: indexPath)
-        bookCell.prepare(using: bookVM)
-    }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        booksListVM?.downloadBookDetails(for: indexPath)
-//        goToBookDetailVC(using: (booksListVM?.getBookVM(for: indexPath))!)
-
-    }
 }
 
 extension BooksVC: BooksVCDelegate {
