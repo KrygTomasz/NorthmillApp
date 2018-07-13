@@ -6,6 +6,11 @@
   Copyright © 2018 Kryg Tomasz. All rights reserved.
 */
 
+"cancel" = "Cancel";
 "allBooks" = "Books";
 "details" = "Details";
+"bookTitle" = "Book title";
 "bookDescription" = "Book description";
+"coverUrlLink" = "URL link with cover image";
+"addBook" = "Add book";
+"bookDelete" = "Delete book";

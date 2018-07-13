@@ -26,7 +26,7 @@ class BooksVC: UIViewController {
             booksTableView.contentInset = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 4.0, right: 0.0)
         }
     }
-    
+    lazy var addBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(onAddBarButtonClicked))
     var booksListVM: BooksListVM?
     
     override func viewDidLoad() {
@@ -35,15 +35,16 @@ class BooksVC: UIViewController {
     }
     
     private func prepareView() {
+        self.navigationItem.rightBarButtonItem = addBarButton
         self.view.backgroundColor = UIColor.backgroundColor
         self.prepareNavigationBar(withTitle: "allBooks".localized())
         booksListVM = BRBooksListVM(with: self)
         booksListVM?.downloadBooks()
     }
-    func showDeleteAlert(bookId: String) {
-        let alert = UIAlertController(title: "Book delete", message: "Are u sure man?", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let deleteAction = UIAlertAction(title: "Delete", style: .default) { action in
+    private func getDeleteAlert(bookId: String) -> UIAlertController {
+        let alert = UIAlertController(title: "bookDelete".localized(), message: "bookDeleteConfirmationQuestion".localized(), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "cancel".localized(), style: .cancel, handler: nil)
+        let deleteAction = UIAlertAction(title: "delete".localized(), style: .default) { action in
             RequestManager.shared.deleteBook(withId: bookId, completion: { success in
                 self.hideIndicator(success: success)
                 self.booksListVM?.downloadBooks()
@@ -51,7 +52,29 @@ class BooksVC: UIViewController {
         }
         alert.addAction(cancelAction)
         alert.addAction(deleteAction)
+        return alert
+    }
+    func showDeleteAlert(bookId: String) {
+        let alert = getDeleteAlert(bookId: bookId)
         self.present(alert, animated: true)
+    }
+    @objc func onAddBarButtonClicked() {
+        showAddNewBookVC()
+    }
+    private func getAddNewBookVC() -> AddNewBookVC {
+        let vc = AddNewBookVC.getInstance()
+        return vc
+    }
+    func showAddNewBookVC() {
+        let addNewBookVC = getAddNewBookVC()
+        addNewBookVC.view.alpha = 0
+        self.present(addNewBookVC, animated: false, completion: { [weak self] in
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.3, animations: {
+                    addNewBookVC.view.alpha = 1
+                })
+            }
+        })
     }
     
 }

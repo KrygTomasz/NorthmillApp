@@ -6,6 +6,11 @@
   Copyright © 2018 Kryg Tomasz. All rights reserved.
 */
 
+"cancel" = "Anuluj";
 "allBooks" = "Książki";
 "details" = "Szczegóły";
+"bookTitle" = "Tytuł książki";
 "bookDescription" = "Opis książki";
+"coverUrlLink" = "Link URL z okładką książki";
+"addBook" = "Dodaj książkę";
+"bookDelete" = "Usuń książkę";

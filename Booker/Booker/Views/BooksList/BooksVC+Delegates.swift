@@ -1,5 +1,5 @@
 //
-//  BooksVC+UITableViewDelegates.swift
+//  BooksVC+Delegates.swift
 //  Booker
 //
 //  Created by Kryg Tomasz on 12.07.2018.
