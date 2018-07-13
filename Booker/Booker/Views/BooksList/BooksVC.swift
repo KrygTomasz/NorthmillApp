@@ -34,15 +34,29 @@ class BooksVC: UIViewController {
         prepareView()
     }
     
-    func prepareView() {
+    private func prepareView() {
         self.view.backgroundColor = UIColor.backgroundColor
         self.prepareNavigationBar(withTitle: "allBooks".localized())
         booksListVM = BRBooksListVM(with: self)
         booksListVM?.downloadBooks()
     }
+    func showDeleteAlert(bookId: String) {
+        let alert = UIAlertController(title: "Book delete", message: "Are u sure man?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let deleteAction = UIAlertAction(title: "Delete", style: .default) { action in
+            RequestManager.shared.deleteBook(withId: bookId, completion: { success in
+                self.hideIndicator(success: success)
+                self.booksListVM?.downloadBooks()
+            })
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        self.present(alert, animated: true)
+    }
     
 }
 
+//MARK: BooksVCDelegate
 extension BooksVC: BooksVCDelegate {
     func showIndicator() {
         

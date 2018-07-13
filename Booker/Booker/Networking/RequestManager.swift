@@ -8,9 +8,10 @@
 
 import Foundation
 
-typealias BooksCompletion = ((Bool, [Book]) -> Void)
-typealias BookCompletion = ((Bool, Book?) -> Void)
+typealias GetBooksCompletion = ((Bool, [Book]) -> Void)
+typealias GetBookCompletion = ((Bool, Book?) -> Void)
 typealias AddBookCompletion = ((Bool) -> Void)
+typealias DeleteBookCompletion = ((Bool) -> Void)
 
 final class RequestManager {
     
@@ -55,7 +56,7 @@ final class RequestManager {
 //MARK: Api requests methods
 extension RequestManager {
     
-    func getBooks(completion: @escaping BooksCompletion) {
+    func getBooks(completion: @escaping GetBooksCompletion) {
         guard let request = getRequest(usingHttpMethod: "GET", forEndpoint: booksEndpoint) else { return }
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
@@ -76,7 +77,7 @@ extension RequestManager {
         }.resume()
     }
     
-    func getBook(withId id: String, completion: @escaping BookCompletion) {
+    func getBook(withId id: String, completion: @escaping GetBookCompletion) {
         let endpoint = bookEndpoint + "/\(id)"
         guard let request = getRequest(usingHttpMethod: "GET", forEndpoint: endpoint) else { return }
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -111,13 +112,32 @@ extension RequestManager {
             if let error = error {
                 NSLog(error.localizedDescription)
                 completion(false)
+                return
             }
             guard let data = data else {
                 completion(false)
                 return
             }
             completion(true)
-            }.resume()
+        }.resume()
+    }
+    
+    func deleteBook(withId id: String, completion: @escaping DeleteBookCompletion) {
+        let endpoint = bookEndpoint + "/\(id)"
+        guard let request = getRequest(usingHttpMethod: "DELETE", forEndpoint: endpoint) else { return }
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if
+                let error = error {
+                NSLog(error.localizedDescription)
+                completion(false)
+                return
+            }
+            guard let data = data else {
+                completion(false)
+                return
+            }
+            completion(true)
+        }.resume()
     }
     
 }

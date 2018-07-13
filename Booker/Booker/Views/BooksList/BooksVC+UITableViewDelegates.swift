@@ -36,5 +36,15 @@ extension BooksVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         booksListVM?.downloadBookDetails(for: indexPath)
     }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("try to delete")
+            let bookId = booksListVM?.getBookVM(for: indexPath)?.id ?? ""
+            showDeleteAlert(bookId: bookId)
+        }
+    }
     
 }
