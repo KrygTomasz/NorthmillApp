@@ -8,16 +8,9 @@
 
 import UIKit
 
-protocol BooksVCDelegate: class {
-    func showIndicator()
-    func hideIndicator(success: Bool)
-    func reloadBookData()
-    func refreshData()
-    func goToBookDetailVC(using bookVM: BookVM)
-}
-
 class BooksVC: UIViewController {
-
+    
+    //MARK: IBOutlets
     @IBOutlet weak var booksTableView: UITableView! {
         didSet {
             let bookCellNib = UINib(nibName: "BookTVCell", bundle: nil)
@@ -27,14 +20,16 @@ class BooksVC: UIViewController {
             booksTableView.contentInset = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 4.0, right: 0.0)
         }
     }
+    
+    //MARK: Variables
     lazy var addBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(onAddBarButtonClicked))
     var booksListVM: BooksListVM?
     
+    //MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
     }
-    
     private func prepareView() {
         self.navigationItem.rightBarButtonItem = addBarButton
         self.view.backgroundColor = UIColor.backgroundColor
@@ -61,9 +56,6 @@ class BooksVC: UIViewController {
         let alert = getDeleteAlert(for: bookVM)
         self.present(alert, animated: true)
     }
-    @objc func onAddBarButtonClicked() {
-        showAddNewBookVC()
-    }
     private func getAddNewBookVC() -> AddNewBookVC {
         let vc = AddNewBookVC.getInstance(using: self)
         return vc
@@ -79,29 +71,16 @@ class BooksVC: UIViewController {
             }
         })
     }
+    func getSuccessfulAddBookAlert() -> UIAlertController {
+        let alert = UIAlertController(title: "bookAddedSuccessfully".localized(), message: "", preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "ok".localized(), style: .default, handler: nil)
+        alert.addAction(dismissAction)
+        return alert
+    }
     
-}
-
-//MARK: BooksVCDelegate
-extension BooksVC: BooksVCDelegate {
-    func showIndicator() {
-        
+    //MARK: Selector methods
+    @objc func onAddBarButtonClicked() {
+        showAddNewBookVC()
     }
-    func hideIndicator(success: Bool) {
-        
-    }
-    func reloadBookData() {
-        booksListVM?.downloadBooks()
-    }
-    func refreshData() {
-        DispatchQueue.main.async { [weak self] in
-            self?.booksTableView.reloadData()
-        }
-    }
-    func goToBookDetailVC(using bookVM: BookVM) {
-        DispatchQueue.main.async { [weak self] in
-            let bookVC = BookDetailsVC.getInstance(using: bookVM)
-            self?.navigationController?.pushViewController(bookVC, animated: true)
-        }
-    }
+    
 }

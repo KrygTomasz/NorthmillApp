@@ -8,9 +8,18 @@
 
 import UIKit
 
+//MARK: Delegate definitions
+protocol BooksVCDelegate: class {
+    func showIndicator()
+    func hideIndicator(success: Bool)
+    func reloadBookData()
+    func refreshData()
+    func goToBookDetailVC(using bookVM: BookVM)
+    func showSuccessfulAddBookAlert()
+}
+
 //MARK: UITableView delegates
 extension BooksVC: UITableViewDelegate, UITableViewDataSource {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return booksListVM?.numberOfSections ?? 0
     }
@@ -46,5 +55,32 @@ extension BooksVC: UITableViewDelegate, UITableViewDataSource {
             showDeleteAlert(for: bookVM)
         }
     }
-    
+}
+
+//MARK: BooksVCDelegate
+extension BooksVC: BooksVCDelegate {
+    func showIndicator() {
+        
+    }
+    func hideIndicator(success: Bool) {
+        
+    }
+    func reloadBookData() {
+        booksListVM?.downloadBooks()
+    }
+    func refreshData() {
+        DispatchQueue.main.async { [weak self] in
+            self?.booksTableView.reloadData()
+        }
+    }
+    func goToBookDetailVC(using bookVM: BookVM) {
+        DispatchQueue.main.async { [weak self] in
+            let bookVC = BookDetailsVC.getInstance(using: bookVM)
+            self?.navigationController?.pushViewController(bookVC, animated: true)
+        }
+    }
+    func showSuccessfulAddBookAlert() {
+        let alert = getSuccessfulAddBookAlert()
+        self.present(alert, animated: true, completion: nil)
+    }
 }

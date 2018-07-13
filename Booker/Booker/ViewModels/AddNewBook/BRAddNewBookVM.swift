@@ -8,6 +8,7 @@
 
 import Foundation
 
+//MARK: AddNewBookVM implementation
 class BRAddNewBookVM: AddNewBookVM {
     
     //MARK: Initializer
@@ -37,7 +38,10 @@ class BRAddNewBookVM: AddNewBookVM {
         RequestManager.shared.addBook(book) { [weak self]
             success in
             self?.viewDelegate?.hideIndicator(success: success)
-            self?.viewDelegate?.hideVC(withReload: true)
+            if success {
+                self?.viewDelegate?.hideVC(withReload: true)
+                self?.viewDelegate?.showSuccessfulAddBookAlert()
+            }
             return
         }
         return .successful

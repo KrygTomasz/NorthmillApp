@@ -10,7 +10,6 @@ import UIKit
 
 //MARK: Downloading image from url
 extension RequestManager {
-    
     private func getDataFromUrl(url: URL?, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         guard let url = url else {
             print("Getting data from url failed. Wrong format for URL address.")
@@ -33,5 +32,4 @@ extension RequestManager {
             completion(UIImage(data: data))
         }
     }
-    
 }

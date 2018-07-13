@@ -8,14 +8,9 @@
 
 import UIKit
 
-protocol AddNewBookVCDelegate: class {
-    func showIndicator()
-    func hideIndicator(success: Bool)
-    func hideVC(withReload reload: Bool)
-}
-
 class AddNewBookVC: UIViewController {
-
+    
+    //MARK: IBOutlets
     @IBOutlet weak var containerView: UIView! {
         didSet {
             containerView.layer.cornerRadius = GlobalValues.BIG_CORNER_RADIUS
@@ -67,11 +62,19 @@ class AddNewBookVC: UIViewController {
             addBookButton.addTarget(self, action: #selector(onAddBookClicked), for: .touchUpInside)
         }
     }
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView! {
+        didSet {
+            activityIndicator.isHidden = true
+            activityIndicator.color = UIColor.backgroundColor
+        }
+    }
     
+    //MARK: Variables
     let LABEL_COLOR: UIColor = .backgroundColor
     var addNewBookVM: AddNewBookVM?
     weak var presentingViewDelegate: BooksVCDelegate?
     
+    //MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         addNewBookVM = BRAddNewBookVM(with: self)
@@ -88,6 +91,8 @@ class AddNewBookVC: UIViewController {
         tapGesture.delegate = self
         self.view.addGestureRecognizer(tapGesture)
     }
+    
+    //MARK: Selector methods
     @objc func dismissVC() {
         self.dismiss(animated: false, completion: nil)
     }
@@ -114,39 +119,10 @@ class AddNewBookVC: UIViewController {
 
 //MARK: Constructor
 extension AddNewBookVC {
-    
     static func getInstance(using presentingViewDelegate: BooksVCDelegate? = nil) -> AddNewBookVC {
         let vc = AddNewBookVC(nibName: "AddNewBookVC", bundle: nil)
         let _ = vc.view
         vc.presentingViewDelegate = presentingViewDelegate
         return vc
-    }
-    
-}
-
-//MARK: Delegates
-extension AddNewBookVC: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if
-            let touchedView = touch.view,
-            touchedView == self.view {
-            return true
-        }
-        return false
-    }
-}
-
-extension AddNewBookVC: AddNewBookVCDelegate {
-    func showIndicator() {
-        
-    }
-    func hideIndicator(success: Bool) {
-        
-    }
-    func hideVC(withReload reload: Bool) {
-        if reload {
-            presentingViewDelegate?.reloadBookData()
-        }
-        dismissVC()
     }
 }

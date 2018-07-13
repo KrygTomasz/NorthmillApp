@@ -8,6 +8,7 @@
 
 import Foundation
 
+//MARK: BooksListVM implementation
 class BRBooksListVM: BooksListVM {
     
     //MARK: Initializer
@@ -42,6 +43,7 @@ class BRBooksListVM: BooksListVM {
             for book in books {
                 booksVMs.append(BRBookVM(using: book))
             }
+            booksVMs = booksVMs.sorted(by: { $1.title.lowercased() > $0.title.lowercased() })
             viewDelegate?.hideIndicator(success: success)
             viewDelegate?.refreshData()
         } else {

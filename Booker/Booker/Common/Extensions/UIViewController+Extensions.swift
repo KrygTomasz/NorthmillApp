@@ -9,7 +9,6 @@
 import UIKit
 
 extension UIViewController {
-    
     func prepareNavigationBar(withTitle title: String) {
         navigationItem.title = title
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
@@ -19,5 +18,4 @@ extension UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
     }
-    
 }

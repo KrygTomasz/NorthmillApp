@@ -10,6 +10,7 @@ import UIKit
 
 class BookDetailsVC: UIViewController {
     
+    //MARK: IBOutlets
     @IBOutlet weak var containerView: UIView! {
         didSet {
             containerView.layer.cornerRadius = GlobalValues.BIG_CORNER_RADIUS
@@ -32,6 +33,7 @@ class BookDetailsVC: UIViewController {
     }
     @IBOutlet weak var descriptionLabel: UILabel!
     
+    //MARK: Variables
     var bookVM: BookVM? {
         didSet {
             titleLabel.text = bookVM?.title
@@ -40,12 +42,12 @@ class BookDetailsVC: UIViewController {
         }
     }
     
+    //MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.prepareNavigationBar(withTitle: "details".localized())
         self.view.backgroundColor = UIColor.backgroundColor
     }
-    
     private func setCoverImage(_ image: UIImage?) {
         DispatchQueue.main.async { [weak self] in
             var hideImage = false
@@ -63,12 +65,10 @@ class BookDetailsVC: UIViewController {
 
 //MARK: Constructor
 extension BookDetailsVC {
-    
     static func getInstance(using vm: BookVM?) -> BookDetailsVC {
         let vc = BookDetailsVC(nibName: "BookDetailsVC", bundle: nil)
         let _ = vc.view
         vc.bookVM = vm
         return vc
     }
-    
 }

@@ -60,7 +60,7 @@
                                             <rect key="frame" x="0.0" y="236" width="343" height="50"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xP4-JP-jjQ">
-                                                    <rect key="frame" x="8" y="16" width="327" height="34"/>
+                                                    <rect key="frame" x="24" y="16" width="295" height="34"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -68,8 +68,8 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="xP4-JP-jjQ" firstAttribute="leading" secondItem="d4f-mq-6c4" secondAttribute="leading" constant="8" id="4Kf-oP-z1A"/>
-                                                <constraint firstAttribute="trailing" secondItem="xP4-JP-jjQ" secondAttribute="trailing" constant="8" id="ihf-JQ-4GR"/>
+                                                <constraint firstItem="xP4-JP-jjQ" firstAttribute="leading" secondItem="d4f-mq-6c4" secondAttribute="leading" constant="24" id="4Kf-oP-z1A"/>
+                                                <constraint firstAttribute="trailing" secondItem="xP4-JP-jjQ" secondAttribute="trailing" constant="24" id="ihf-JQ-4GR"/>
                                                 <constraint firstItem="xP4-JP-jjQ" firstAttribute="top" secondItem="d4f-mq-6c4" secondAttribute="top" constant="16" id="knd-yv-cR9"/>
                                                 <constraint firstAttribute="bottom" secondItem="xP4-JP-jjQ" secondAttribute="bottom" id="uvZ-74-Qfx"/>
                                             </constraints>

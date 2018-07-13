@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddNewBookVC" customModule="Booker" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="5MU-Tw-Ybr" id="whp-Fg-N9Z"/>
                 <outlet property="addBookButton" destination="5Zc-hm-TeM" id="7g8-F2-skl"/>
                 <outlet property="containerView" destination="hgy-4I-d6m" id="ERT-tu-5A2"/>
                 <outlet property="descriptionLabel" destination="6sh-62-a3V" id="s9M-l2-D8B"/>
@@ -163,12 +164,17 @@
                             </constraints>
                             <state key="normal" title="Button"/>
                         </button>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="5MU-Tw-Ybr">
+                            <rect key="frame" x="145.5" y="340" width="20" height="20"/>
+                        </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="5MU-Tw-Ybr" firstAttribute="centerX" secondItem="5Zc-hm-TeM" secondAttribute="centerX" id="06U-iA-bDz"/>
                         <constraint firstItem="Uo4-MY-lII" firstAttribute="top" secondItem="hgy-4I-d6m" secondAttribute="top" constant="8" id="6mE-SN-pjF"/>
                         <constraint firstItem="5Zc-hm-TeM" firstAttribute="leading" secondItem="hgy-4I-d6m" secondAttribute="leading" constant="16" id="GUZ-Ab-qdN"/>
                         <constraint firstAttribute="trailing" secondItem="Uo4-MY-lII" secondAttribute="trailing" constant="16" id="L9d-D1-EJI"/>
+                        <constraint firstItem="5MU-Tw-Ybr" firstAttribute="centerY" secondItem="5Zc-hm-TeM" secondAttribute="centerY" id="Vdn-FB-FsJ"/>
                         <constraint firstAttribute="trailing" secondItem="5Zc-hm-TeM" secondAttribute="trailing" constant="16" id="jbp-w2-Y8T"/>
                         <constraint firstItem="Uo4-MY-lII" firstAttribute="leading" secondItem="hgy-4I-d6m" secondAttribute="leading" constant="16" id="n1c-eB-BIQ"/>
                         <constraint firstItem="5Zc-hm-TeM" firstAttribute="top" secondItem="Uo4-MY-lII" secondAttribute="bottom" constant="16" id="wV2-S9-qiz"/>

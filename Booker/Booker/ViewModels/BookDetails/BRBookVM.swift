@@ -8,6 +8,7 @@
 
 import UIKit
 
+//MARK: BookVM implementation
 class BRBookVM: BookVM {
     
     //MARK: Initializer

@@ -6,14 +6,16 @@
 //  Copyright © 2018 Kryg Tomasz. All rights reserved.
 //
 
+import Foundation
+
+//MARK: Add book status definition
 enum AddBookStatus {
     case successful
     case noTitle
     case noDescription
 }
 
-import Foundation
-
+//MARK: AddNewBookVM protocol
 protocol AddNewBookVM {
     var title: String { get set }
     var description: String { get set }

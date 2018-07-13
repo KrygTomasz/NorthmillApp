@@ -35,6 +35,7 @@
 		226FA1A820F8FCDB00DA740B /* AddNewBookVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 226FA1A620F8FCDB00DA740B /* AddNewBookVC.xib */; };
 		226FA1AF20F9163500DA740B /* AddNewBookVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226FA1AE20F9163500DA740B /* AddNewBookVM.swift */; };
 		226FA1B120F916B300DA740B /* BRAddNewBookVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226FA1B020F916B300DA740B /* BRAddNewBookVM.swift */; };
+		226FA1B320F92FCE00DA740B /* AddNewBookVC+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226FA1B220F92FCE00DA740B /* AddNewBookVC+Delegates.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		226FA1A620F8FCDB00DA740B /* AddNewBookVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddNewBookVC.xib; sourceTree = "<group>"; };
 		226FA1AE20F9163500DA740B /* AddNewBookVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBookVM.swift; sourceTree = "<group>"; };
 		226FA1B020F916B300DA740B /* BRAddNewBookVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRAddNewBookVM.swift; sourceTree = "<group>"; };
+		226FA1B220F92FCE00DA740B /* AddNewBookVC+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddNewBookVC+Delegates.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 				226FA1AD20F9156D00DA740B /* AddNewBook */,
 				223CA2F620F7FD0F00106192 /* BooksList */,
 				223CA2F720F7FD1A00106192 /* BookDetails */,
+				22629FF320F68A5D004E45C6 /* LaunchScreen.storyboard */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -98,7 +101,6 @@
 			isa = PBXGroup;
 			children = (
 				226FA1A420F8FCAB00DA740B /* AddNewBook */,
-				22629FF320F68A5D004E45C6 /* LaunchScreen.storyboard */,
 				223CA2F420F7FCD600106192 /* BooksList */,
 				223CA2F520F7FCF500106192 /* BookDetails */,
 			);
@@ -227,6 +229,7 @@
 			children = (
 				226FA1A620F8FCDB00DA740B /* AddNewBookVC.xib */,
 				226FA1A520F8FCDB00DA740B /* AddNewBookVC.swift */,
+				226FA1B220F92FCE00DA740B /* AddNewBookVC+Delegates.swift */,
 			);
 			path = AddNewBook;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				223CA2D720F7B75800106192 /* UIColor+Extensions.swift in Sources */,
 				22629FFD20F68D34004E45C6 /* RequestManager.swift in Sources */,
 				223CA2D220F7B4ED00106192 /* BookVM.swift in Sources */,
+				226FA1B320F92FCE00DA740B /* AddNewBookVC+Delegates.swift in Sources */,
 				226FA1B120F916B300DA740B /* BRAddNewBookVM.swift in Sources */,
 				223CA2D020F7B44000106192 /* GlobalValues.swift in Sources */,
 				223CA2DA20F7BD9400106192 /* Collection+Extensions.swift in Sources */,

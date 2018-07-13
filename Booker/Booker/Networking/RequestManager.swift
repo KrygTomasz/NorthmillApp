@@ -8,6 +8,7 @@
 
 import Foundation
 
+//MARK: Request completion types
 typealias GetBooksCompletion = ((Bool, [Book]) -> Void)
 typealias GetBookCompletion = ((Bool, Book?) -> Void)
 typealias AddBookCompletion = ((Bool) -> Void)
@@ -18,10 +19,12 @@ final class RequestManager {
     private init() { }
     static let shared = RequestManager()
     
+    //MARK: Constants
     private let urlAddress = "http://apitest-northmill.azurewebsites.net/api/"
     private let booksEndpoint = "Books"
     private let bookEndpoint = "Book"
     
+    //MARK: Helper methods
     private func getRequest(usingHttpMethod httpMethod: String?, forEndpoint endpoint: String, withBody httpBody: Data? = nil) -> URLRequest? {
         let address = urlAddress + endpoint
         guard let url = URL(string: address) else { return nil }
@@ -32,7 +35,6 @@ final class RequestManager {
         request.setValue(getBasicAuth(), forHTTPHeaderField: "Authorization")
         return request
     }
-    
     private func getBasicAuth() -> String {
         let username = "test"
         let password = "BBTJcpfIpHrnzW25fyxvNsHP0Mk7IrAd"
@@ -41,7 +43,6 @@ final class RequestManager {
         let base64LoginString = loginData.base64EncodedString()
         return "Basic \(base64LoginString)"
     }
-    
     private func getAddBookBody(using book: Book) -> [String : String?] {
         let parameters = [
             "Title" : book.Title,
@@ -56,6 +57,7 @@ final class RequestManager {
 //MARK: Api requests methods
 extension RequestManager {
     
+    //MARK: GET Book List
     func getBooks(completion: @escaping GetBooksCompletion) {
         guard let request = getRequest(usingHttpMethod: "GET", forEndpoint: booksEndpoint) else { return }
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -77,6 +79,7 @@ extension RequestManager {
         }.resume()
     }
     
+    //MARK: GET Book
     func getBook(withId id: String, completion: @escaping GetBookCompletion) {
         let endpoint = bookEndpoint + "/\(id)"
         guard let request = getRequest(usingHttpMethod: "GET", forEndpoint: endpoint) else { return }
@@ -99,6 +102,7 @@ extension RequestManager {
         }.resume()
     }
     
+    //MARK: POST Book
     func addBook(_ book: Book?, completion: @escaping AddBookCompletion) {
         guard let bookToAdd = book else {
             completion(false)
@@ -122,6 +126,7 @@ extension RequestManager {
         }.resume()
     }
     
+    //MARK: DELETE Book
     func deleteBook(withId id: String, completion: @escaping DeleteBookCompletion) {
         let endpoint = bookEndpoint + "/\(id)"
         guard let request = getRequest(usingHttpMethod: "DELETE", forEndpoint: endpoint) else { return }

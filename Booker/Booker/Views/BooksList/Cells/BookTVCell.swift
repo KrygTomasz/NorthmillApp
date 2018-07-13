@@ -9,7 +9,8 @@
 import UIKit
 
 class BookTVCell: UITableViewCell {
-
+    
+    //MARK: IBOutlets
     @IBOutlet weak var containerView: UIView! {
         didSet {
             containerView.layer.cornerRadius = GlobalValues.MEDIUM_CORNER_RADIUS
@@ -17,12 +18,14 @@ class BookTVCell: UITableViewCell {
     }
     @IBOutlet weak var titleLabel: UILabel!
     
+    //MARK: Variables
     var bookVM: BookVM? {
         didSet {
             titleLabel.text = bookVM?.title
         }
     }
     
+    //MARK: Methods
     override func awakeFromNib() {
         super.awakeFromNib()
     }

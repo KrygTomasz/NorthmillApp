@@ -8,6 +8,7 @@
 
 import Foundation
 
+//MARK: BooksListVM protocol
 protocol BooksListVM {
     var numberOfSections: Int { get }
     func numberOfRows(in section: Int) -> Int

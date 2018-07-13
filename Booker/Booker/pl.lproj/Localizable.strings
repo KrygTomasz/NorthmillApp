@@ -16,3 +16,5 @@
 "bookDeleteConfirmationQuestion" = "Czy na pewno chcesz usunąć %@?";
 "cancel" = "Anuluj";
 "delete" = "Usuń";
+"bookAddedSuccessfully" = "Książka została dodana!";
+"ok" = "OK";
