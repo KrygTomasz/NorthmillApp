@@ -9,6 +9,13 @@
 import UIKit
 
 class BRBookVM: BookVM {
+    
+    //MARK: Initializer
+    init(using book: Book?) {
+        self.book = book
+    }
+    
+    //MARK: Variables
     var book: Book?
     var id: String {
         return book?.Id ?? ""
@@ -22,10 +29,13 @@ class BRBookVM: BookVM {
     var imageUrl: String {
         return book?.CoverUrl ?? ""
     }
-    init(using book: Book?) {
-        self.book = book
-    }
+    
+    //MARK: Methods
     func downloadImage(completion: @escaping ((UIImage?) -> Void)) {
         RequestManager.shared.downloadImage(from: imageUrl, completion: completion)
     }
+    func deleteBook(completion: @escaping ((Bool) -> Void)) {
+        RequestManager.shared.deleteBook(withId: id, completion: completion)
+    }
+    
 }

@@ -40,10 +40,10 @@ extension BooksVC: UITableViewDelegate, UITableViewDataSource {
         return true
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            print("try to delete")
-            let bookId = booksListVM?.getBookVM(for: indexPath)?.id ?? ""
-            showDeleteAlert(bookId: bookId)
+        if
+            editingStyle == .delete,
+            let bookVM = booksListVM?.getBookVM(for: indexPath) {
+            showDeleteAlert(for: bookVM)
         }
     }
     

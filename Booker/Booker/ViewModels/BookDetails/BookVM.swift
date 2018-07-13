@@ -14,4 +14,5 @@ protocol BookVM {
     var description: String { get }
     var imageUrl: String { get }
     func downloadImage(completion: @escaping ((UIImage?) -> Void))
+    func deleteBook(completion: @escaping ((Bool) -> Void))
 }

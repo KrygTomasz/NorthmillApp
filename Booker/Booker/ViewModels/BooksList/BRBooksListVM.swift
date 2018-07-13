@@ -10,15 +10,18 @@ import Foundation
 
 class BRBooksListVM: BooksListVM {
     
+    //MARK: Initializer
     init(with delegate: BooksVCDelegate) {
         self.viewDelegate = delegate
         numberOfSections = 1
     }
     
+    //MARK: Variables
     var numberOfSections: Int
     var booksVMs: [BookVM] = []
     weak var viewDelegate: BooksVCDelegate?
     
+    //MARK: Methods
     func numberOfRows(in section: Int) -> Int {
         return booksVMs.count
     }
@@ -35,6 +38,7 @@ class BRBooksListVM: BooksListVM {
     }
     private func downloadBooksCompletion(_ success: Bool, _ books: [Book]) {
         if success {
+            booksVMs.removeAll()
             for book in books {
                 booksVMs.append(BRBookVM(using: book))
             }

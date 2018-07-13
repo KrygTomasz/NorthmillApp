@@ -6,7 +6,6 @@
   Copyright © 2018 Kryg Tomasz. All rights reserved.
 */
 
-"cancel" = "Cancel";
 "allBooks" = "Books";
 "details" = "Details";
 "bookTitle" = "Book title";
@@ -14,3 +13,6 @@
 "coverUrlLink" = "URL link with cover image";
 "addBook" = "Add book";
 "bookDelete" = "Delete book";
+"bookDeleteConfirmationQuestion" = "Are you sure you want to delete %@?";
+"cancel" = "Cancel";
+"delete" = "Delete";

@@ -11,6 +11,7 @@ import UIKit
 protocol BooksVCDelegate: class {
     func showIndicator()
     func hideIndicator(success: Bool)
+    func reloadBookData()
     func refreshData()
     func goToBookDetailVC(using bookVM: BookVM)
 }
@@ -39,30 +40,32 @@ class BooksVC: UIViewController {
         self.view.backgroundColor = UIColor.backgroundColor
         self.prepareNavigationBar(withTitle: "allBooks".localized())
         booksListVM = BRBooksListVM(with: self)
-        booksListVM?.downloadBooks()
+        self.reloadBookData()
     }
-    private func getDeleteAlert(bookId: String) -> UIAlertController {
-        let alert = UIAlertController(title: "bookDelete".localized(), message: "bookDeleteConfirmationQuestion".localized(), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "cancel".localized(), style: .cancel, handler: nil)
-        let deleteAction = UIAlertAction(title: "delete".localized(), style: .default) { action in
-            RequestManager.shared.deleteBook(withId: bookId, completion: { success in
-                self.hideIndicator(success: success)
-                self.booksListVM?.downloadBooks()
+    private func getDeleteAlert(for bookVM: BookVM) -> UIAlertController {
+        let alertMessage = String(format: "bookDeleteConfirmationQuestion".localized(), bookVM.title)
+        let alert = UIAlertController(title: "bookDelete".localized(), message: alertMessage, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "cancel".localized(), style: .default, handler: nil)
+        let deleteAction = UIAlertAction(title: "delete".localized(), style: .destructive) { action in
+            bookVM.deleteBook(completion: { [weak self]
+                success in
+                self?.hideIndicator(success: success)
+                self?.reloadBookData()
             })
         }
-        alert.addAction(cancelAction)
         alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
         return alert
     }
-    func showDeleteAlert(bookId: String) {
-        let alert = getDeleteAlert(bookId: bookId)
+    func showDeleteAlert(for bookVM: BookVM) {
+        let alert = getDeleteAlert(for: bookVM)
         self.present(alert, animated: true)
     }
     @objc func onAddBarButtonClicked() {
         showAddNewBookVC()
     }
     private func getAddNewBookVC() -> AddNewBookVC {
-        let vc = AddNewBookVC.getInstance()
+        let vc = AddNewBookVC.getInstance(using: self)
         return vc
     }
     func showAddNewBookVC() {
@@ -86,6 +89,9 @@ extension BooksVC: BooksVCDelegate {
     }
     func hideIndicator(success: Bool) {
         
+    }
+    func reloadBookData() {
+        booksListVM?.downloadBooks()
     }
     func refreshData() {
         DispatchQueue.main.async { [weak self] in
