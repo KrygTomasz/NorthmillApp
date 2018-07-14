@@ -94,4 +94,11 @@ extension BooksVC: UIEmptyStateDelegate, UIEmptyStateDataSource {
     var emptyStateTitle: NSAttributedString {
         return NSAttributedString(string: "No books", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
     }
+    var emptyStateImage: UIImage? {
+        let image = #imageLiteral(resourceName: "bookIcon").withRenderingMode(.alwaysTemplate)
+        return image
+    }
+    var emptyStateImageViewTintColor: UIColor? {
+        return UIColor.white
+    }
 }
