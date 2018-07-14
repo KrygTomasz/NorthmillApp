@@ -19,5 +19,4 @@
 "bookAddedSuccessfully" = "Book has been added successfully!";
 "ok" = "OK";
 "downloadingBooks" = "Downloading...";
-"booksDownloaded" = "Success";
-"booksDownloadError" = "Download error";
+"booksDownloadError" = "An error occured";

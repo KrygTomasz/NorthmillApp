@@ -99,7 +99,6 @@
 				226FA1AD20F9156D00DA740B /* AddNewBook */,
 				223CA2F620F7FD0F00106192 /* BooksList */,
 				223CA2F720F7FD1A00106192 /* BookDetails */,
-				22629FF320F68A5D004E45C6 /* LaunchScreen.storyboard */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -110,6 +109,7 @@
 				226FA1A420F8FCAB00DA740B /* AddNewBook */,
 				223CA2F420F7FCD600106192 /* BooksList */,
 				223CA2F520F7FCF500106192 /* BookDetails */,
+				22629FF320F68A5D004E45C6 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -589,7 +589,10 @@
 				DEVELOPMENT_TEAM = 3FMVQ97S47;
 				INFOPLIST_FILE = Booker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = kryg.Booker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -606,7 +609,10 @@
 				DEVELOPMENT_TEAM = 3FMVQ97S47;
 				INFOPLIST_FILE = Booker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = kryg.Booker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

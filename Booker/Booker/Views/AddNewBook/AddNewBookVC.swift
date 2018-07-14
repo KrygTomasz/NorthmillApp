@@ -22,7 +22,11 @@ class AddNewBookVC: UIViewController {
             titleLabel.text = "bookTitle".localized() + ":"
         }
     }
-    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var titleTextField: UITextField! {
+        didSet {
+            titleTextField.delegate = self
+        }
+    }
     @IBOutlet weak var titleUnderlineView: UIView! {
         didSet {
             titleUnderlineView.backgroundColor = UIColor.backgroundColor
@@ -36,6 +40,7 @@ class AddNewBookVC: UIViewController {
     }
     @IBOutlet weak var descriptionTextView: UITextView! {
         didSet {
+            descriptionTextView.delegate = self
             descriptionTextView.layer.borderColor = UIColor.backgroundColor.cgColor
             descriptionTextView.layer.borderWidth = 1.0
             descriptionTextView.layer.cornerRadius = GlobalValues.MEDIUM_CORNER_RADIUS
@@ -47,7 +52,11 @@ class AddNewBookVC: UIViewController {
             urlLabel.text = "coverUrlLink".localized() + ":"
         }
     }
-    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var urlTextField: UITextField! {
+        didSet {
+            urlTextField.delegate = self
+        }
+    }
     @IBOutlet weak var urlUnderlineView: UIView! {
         didSet {
             urlUnderlineView.backgroundColor = UIColor.backgroundColor
@@ -105,9 +114,11 @@ class AddNewBookVC: UIViewController {
         case .noTitle?:
             titleLabel.textColor = .red
             descriptionLabel.textColor = LABEL_COLOR
+            titleTextField.becomeFirstResponder()
         case .noDescription?:
             titleLabel.textColor = LABEL_COLOR
             descriptionLabel.textColor = .red
+            descriptionTextView.becomeFirstResponder()
         case .successful?:
             return
         default:

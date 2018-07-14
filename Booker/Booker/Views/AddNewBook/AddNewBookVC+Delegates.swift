@@ -56,3 +56,21 @@ extension AddNewBookVC: AddNewBookVCDelegate {
         presentingViewDelegate?.showSuccessfulAddBookAlert()
     }
 }
+
+//MARK: UITextField and UITextView delegates
+extension AddNewBookVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension AddNewBookVC: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+}
