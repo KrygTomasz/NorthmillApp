@@ -29,6 +29,7 @@ final class RequestManager {
         let address = urlAddress + endpoint
         guard let url = URL(string: address) else { return nil }
         var request = URLRequest(url: url)
+        request.timeoutInterval = GlobalValues.TIMEOUT_INTERVAL
         request.httpMethod = httpMethod
         request.httpBody = httpBody
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

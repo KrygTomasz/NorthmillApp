@@ -24,6 +24,7 @@ class BooksVC: UIViewController {
     //MARK: Variables
     lazy var addBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(onAddBarButtonClicked))
     var booksListVM: BooksListVM?
+    //var hud: JGProgressHUD = JGProgressHUD(style: .dark)
     
     //MARK: Methods
     override func viewDidLoad() {
@@ -31,20 +32,24 @@ class BooksVC: UIViewController {
         prepareView()
     }
     private func prepareView() {
+        BRActivityIndicator.shared.prepare(navigationController: self.navigationController)
         self.navigationItem.rightBarButtonItem = addBarButton
         self.view.backgroundColor = UIColor.backgroundColor
         self.prepareNavigationBar(withTitle: "allBooks".localized())
         booksListVM = BRBooksListVM(with: self)
         self.reloadBookData()
+        self.emptyStateDataSource = self
+        self.emptyStateDelegate = self
     }
     private func getDeleteAlert(for bookVM: BookVM) -> UIAlertController {
         let alertMessage = String(format: "bookDeleteConfirmationQuestion".localized(), bookVM.title)
         let alert = UIAlertController(title: "bookDelete".localized(), message: alertMessage, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "cancel".localized(), style: .default, handler: nil)
         let deleteAction = UIAlertAction(title: "delete".localized(), style: .destructive) { action in
+//            BRActivityIndicator.shared.showActivityIndicator(title: "Deleting book in progress...")
             bookVM.deleteBook(completion: { [weak self]
                 success in
-                self?.hideIndicator(success: success)
+//                self?.hideIndicator(success: success)
                 self?.reloadBookData()
             })
         }

@@ -1,0 +1,8 @@
+target 'Booker' do
+
+  use_frameworks!
+
+  # Pods for Booker
+  pod 'MBProgressHUD'
+  pod 'UIEmptyState'
+end

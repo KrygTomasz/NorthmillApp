@@ -48,6 +48,7 @@ class BRBooksListVM: BooksListVM {
             viewDelegate?.refreshData()
         } else {
             viewDelegate?.hideIndicator(success: success)
+            viewDelegate?.refreshData()
         }
     }
     func downloadBookDetails(for indexPath: IndexPath) {

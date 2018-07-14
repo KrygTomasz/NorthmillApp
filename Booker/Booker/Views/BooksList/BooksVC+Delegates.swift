@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UIEmptyState
 
 //MARK: Delegate definitions
 protocol BooksVCDelegate: class {
@@ -60,17 +61,21 @@ extension BooksVC: UITableViewDelegate, UITableViewDataSource {
 //MARK: BooksVCDelegate
 extension BooksVC: BooksVCDelegate {
     func showIndicator() {
-        
+        DispatchQueue.main.async{ [weak self] in
+            BRActivityIndicator.shared.showActivityIndicator(title: "downloadingBooks".localized())
+        }
     }
     func hideIndicator(success: Bool) {
-        
+        BRActivityIndicator.shared.hideActivityIndicator(success: success)
     }
     func reloadBookData() {
         booksListVM?.downloadBooks()
     }
     func refreshData() {
         DispatchQueue.main.async { [weak self] in
-            self?.booksTableView.reloadData()
+            guard let strongSelf = self else { return }
+            strongSelf.booksTableView.reloadData()
+            strongSelf.reloadEmptyStateForTableView(strongSelf.booksTableView)
         }
     }
     func goToBookDetailVC(using bookVM: BookVM) {
@@ -82,5 +87,11 @@ extension BooksVC: BooksVCDelegate {
     func showSuccessfulAddBookAlert() {
         let alert = getSuccessfulAddBookAlert()
         self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension BooksVC: UIEmptyStateDelegate, UIEmptyStateDataSource {
+    var emptyStateTitle: NSAttributedString {
+        return NSAttributedString(string: "No books", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
     }
 }
